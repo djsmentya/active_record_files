@@ -9,18 +9,18 @@ RSpec.describe ActiveRecordFiles::Base do
     }
   end
 
+  describe '#new' do
+    it 'create new file' do
+      TestItem.new
+      expect(File.file?('./spec/dummy/test_items.json')).to be_truthy
+    end
+  end
+
   describe '#save' do
-    it 'create new file' do
+    let(:table_representation) {[{}]}
+    it 'write to file json object' do
       TestItem.new.save
-      expect(File.file?('./spec/dummy/test_items.json')).to be_truthy
+      expect(File.read('./spec/dummy/test_items.json')).to eq table_representation.to_json
     end
   end
-
-  describe '.create' do
-    it 'create new file' do
-      TestItem.create
-      expect(File.file?('./spec/dummy/test_items.json')).to be_truthy
-    end
-  end
-
 end

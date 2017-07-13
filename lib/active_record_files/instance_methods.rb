@@ -1,13 +1,22 @@
 module ActiveRecordFiles
   module InstanceMethods
     def save
-      FileUtils.touch(build_path)
+      build_record
+      File.write(build_path, json_file.to_json)
+    end
+
+    def attributes
+      @attributes ||= {} unless defined?(@attributes)
     end
 
     private
 
-    def build_path
-      Pathname.new(self.class.configurations[:root]) + "#{self.class.name.underscore.pluralize}.json"
+    def json_file
+      @json_file
+    end
+
+    def build_record
+      json_file.push(attributes)
     end
   end
 end
