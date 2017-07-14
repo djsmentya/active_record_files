@@ -17,7 +17,7 @@ RSpec.describe ActiveRecordFiles::Base do
   end
 
   describe '#save' do
-    let(:table_representation) {[{}]}
+    let(:table_representation) { [{}] }
     it 'write to file json object' do
       TestItem.new.save
       expect(File.read('./spec/dummy/test_items.json')).to eq table_representation.to_json

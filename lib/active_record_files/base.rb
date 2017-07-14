@@ -20,7 +20,7 @@ module ActiveRecordFiles
       if File.file?(path)
         JSON.parse File.read(path)
       else
-        File.open(path, 'w') { |io| io.write([].to_json)  }
+        File.open(path, 'w') { |io| io.write([].to_json) }
         []
       end
     end
