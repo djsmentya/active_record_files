@@ -1,28 +1,52 @@
 # ActiveRecordFiles
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/active_record_files`. To experiment with that code, run `bin/console` for an interactive prompt.
+Gem implement active record patern. It store data into json files.
+Each file represent a model. File is a plain json text in format:
 
-TODO: Delete this and the text above, and describe your gem
+NOTICE: this gem not published to rubygems as it is for personal
+researches.
+
+```
+store/users.json
+[
+  {name: 'John', email: 'john@example.com'}
+]
+```
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install it yourself as:
 
-```ruby
-gem 'active_record_files'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install active_record_files
+    $ gem build active_record_files.gemspec
+    $ gem install ./active_record_files-0.1.0.gem
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'active_record_files'
+
+ActiveRecordFiles::Base.configurations = {
+  root: Pathname('/my/custome/path/to/root/directory')
+}
+class User < ActiveRecordFiles::Base
+  # map attributes
+  attribute :first_name, String
+  attribute :last_name,  String
+  attribute :email,      String
+end
+
+user = User.new first_name: 'John'
+user.last_name = 'Doue'
+
+user.save
+
+User.create( first_name: 'Elis', email: 'elis@example.com')
+
+john = User.find(0)
+elis = User.find(1)
+
+User.where(first_name: 'Elis')
+```
 
 ## Development
 
@@ -32,7 +56,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/active_record_files. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/djsmentya/active_record_files. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
