@@ -23,4 +23,14 @@ RSpec.describe ActiveRecordFiles::Base do
       expect(File.read('./spec/dummy/test_items.json')).to eq table_representation.to_json
     end
   end
+
+  describe 'attribute mapping' do
+    it 'create accessors for attribute' do
+      class TestSchemaMapping < ActiveRecordFiles::Base
+        attribute :custom_attribute, String
+      end
+      expect(TestSchemaMapping.new).to respond_to(:custom_attribute)
+      expect(TestSchemaMapping.new).to respond_to(:custom_attribute=)
+    end
+  end
 end

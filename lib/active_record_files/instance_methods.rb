@@ -5,10 +5,6 @@ module ActiveRecordFiles
       File.write(build_path, json_file.to_json)
     end
 
-    def attributes
-      @attributes ||= {} unless defined?(@attributes)
-    end
-
     private
 
     def json_file
