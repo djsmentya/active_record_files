@@ -9,7 +9,14 @@ module ActiveRecordFiles
         define_attributes
       end
 
+      def assign_attributes(attrs)
+        attrs.each do |name, value|
+          send("#{name}=", value)
+        end
+      end
+
       protected
+
 
       def define_attributes
         @attributes = {}

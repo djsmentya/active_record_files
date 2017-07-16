@@ -13,10 +13,11 @@ module ActiveRecordFiles
     include ModelSchema::InstanceMethods
     include InstanceMethods
 
-    def initialize
+    def initialize(args)
       raise ActiveRecordFiles::NoRootFolderError if self.class.configurations[:root].nil?
       @json_file = load_file
       load_schema!
+      assign_attributes(args)
     end
 
     private

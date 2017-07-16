@@ -2,6 +2,11 @@ require "spec_helper"
 
 class TestItem < ActiveRecordFiles::Base; end
 
+class User < ActiveRecordFiles::Base
+  attribute :name, String
+  attribute :email, String
+end
+
 RSpec.describe ActiveRecordFiles::Base do
   before do
     ActiveRecordFiles::Base.configurations = {
@@ -13,6 +18,12 @@ RSpec.describe ActiveRecordFiles::Base do
     it 'create new file' do
       TestItem.new
       expect(File.file?('./spec/dummy/test_items.json')).to be_truthy
+    end
+
+    it 'assign multiple attributes with params' do
+      user = User.new name: 'John', email: 'john@example.com'
+      expect(user.name).to eql 'John'
+      expect(user.email).to eql 'john@example.com'
     end
   end
 
