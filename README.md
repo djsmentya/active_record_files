@@ -44,6 +44,8 @@ User.create( first_name: 'Elis', email: 'elis@example.com')
 
 john = User.find(0)
 elis = User.find(1)
+
+User.where(first_name: 'Elis')
 ```
 
 ## Development

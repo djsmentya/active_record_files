@@ -33,6 +33,18 @@ RSpec.describe ActiveRecordFiles::Base do
     end
   end
 
+  describe '.where' do
+    before(:each) do
+      User.create(name: 'Will', email: 'will@example.com')
+      User.create(name: 'Luice')
+      User.create(name: 'Will')
+    end
+
+    it 'return collection with matched attributes' do
+      expect(User.where(name: 'Will').first.name).to eq 'Will'
+    end
+  end
+
   describe '#new' do
     it 'assign multiple attributes with params' do
       user = User.new name: 'John', email: 'john@example.com'
