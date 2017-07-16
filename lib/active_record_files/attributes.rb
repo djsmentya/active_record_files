@@ -21,13 +21,13 @@ module ActiveRecordFiles
 
       def define_attributes
         @attributes = {}
-        self.class.attributes_to_define.each do |name, type|
+        self.class.attributes_to_define.each do |name, _type|
           self.class.class_eval do
             define_method "#{name}=" do |value|
               @attributes[name] = value
             end
 
-            define_method "#{name}" do
+            define_method name do
               @attributes[name]
             end
           end

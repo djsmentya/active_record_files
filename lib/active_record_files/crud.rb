@@ -3,22 +3,22 @@ module ActiveRecordFiles
     module InstanceMethods
       def save
         build_record
-        File.write(build_path, json_file.to_json)
+        collection.write
         self
       end
 
       private
 
-      def json_file
-        @json_file
+      def collection
+        @collection ||= Collection.new(self.class)
       end
 
       def build_record
         if new_record?
-          json_file.push(attributes)
-          @id = json_file.length - 1
+          collection.push(attributes)
+          @id = collection.length - 1
         else
-          json_file[id] = attributes
+          collection[id] = attributes
         end
       end
     end

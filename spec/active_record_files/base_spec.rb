@@ -26,12 +26,14 @@ RSpec.describe ActiveRecordFiles::Base do
     end
   end
 
-  describe '#new' do
-    it 'create new file' do
-      TestItem.new
-      expect(File.file?('./spec/dummy/test_items.json')).to be_truthy
+  describe '.find' do
+    it 'return object of existen record' do
+      user_id =  User.create(name: 'Luke').id
+      expect(User.find(user_id).name).to eq('Luke')
     end
+  end
 
+  describe '#new' do
     it 'assign multiple attributes with params' do
       user = User.new name: 'John', email: 'john@example.com'
       expect(user.name).to eql 'John'
