@@ -1,22 +1,23 @@
 module ActiveRecordFiles
-  module ModelSchema
+  module Attributes
 
     module InstanceMethods
       attr_reader :attributes
 
       # Define setter for attributes
-      def load_schema!
+      def load_schema!(args)
         define_attributes
+        assign_attributes(args)
       end
+
+
+      protected
 
       def assign_attributes(attrs)
         attrs.each do |name, value|
           send("#{name}=", value)
         end
       end
-
-      protected
-
 
       def define_attributes
         @attributes = {}

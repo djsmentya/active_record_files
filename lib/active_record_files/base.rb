@@ -1,23 +1,23 @@
 require_relative 'core'
-require_relative 'instance_methods'
-require_relative 'class_methods'
-require_relative 'model_schema'
+require_relative 'crud'
+require_relative 'attributes'
+require_relative 'persistence'
 require_relative 'errors/no_root_folder_error'
 
 module ActiveRecordFiles
   class Base
     extend Core
-    extend ClassMethods
-    extend ModelSchema::ClassMethods
+    extend CRUD::ClassMethods
+    extend Attributes::ClassMethods
 
-    include ModelSchema::InstanceMethods
-    include InstanceMethods
+    include Attributes::InstanceMethods
+    include CRUD::InstanceMethods
+    include Persistence
 
-    def initialize(args)
+    def initialize(args={})
       raise ActiveRecordFiles::NoRootFolderError if self.class.configurations[:root].nil?
       @json_file = load_file
-      load_schema!
-      assign_attributes(args)
+      load_schema!(args)
     end
 
     private
