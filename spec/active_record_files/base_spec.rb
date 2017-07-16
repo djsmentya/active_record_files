@@ -18,6 +18,14 @@ RSpec.describe ActiveRecordFiles::Base do
     }
   end
 
+  describe '.create' do
+    it 'create record with multiple params' do
+      user = User.create name: 'John', email: 'john@example.com'
+      expect(user.name).to eql 'John'
+      expect(user.email).to eql 'john@example.com'
+    end
+  end
+
   describe '#new' do
     it 'create new file' do
       TestItem.new

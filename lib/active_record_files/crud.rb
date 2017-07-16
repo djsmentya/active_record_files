@@ -24,10 +24,9 @@ module ActiveRecordFiles
     end
 
     module ClassMethods
-      def create
-        object = new
+      def create(args)
+        object = new(args)
         object.save
-        object
       end
     end
   end
